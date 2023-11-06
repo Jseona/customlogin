@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout}">
+<!--<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>-->
+<th:block layout:fragment="script">
+	<script th:inline="javascript">  //th:inline="javascript" == type="text/javascript"
+    //페이지를 브라우저에서 읽었으면(출력했으면) 동작해라
+    $(document).ready(function(){
+        //작업할 내용을 기재
+        //model.addAttribute("errorMessage","오류입니다.") 이런식으로 Controller에서 보내주기
+        let errorMessage = [[${errorMessage}]];  //서버로부터 errorMessage 값을 받아서
+        if (errorMessage != null && errorMessage.length > 0) {  //전달받은 오류메세지가 있으면
+            alert(errorMessage);  //전달받은 오류메세지를 메세지창에 출력
+        }
+    });
+	</script>
+</th:block>
+<body>
+	<div layout:fragment="content">
+		javascript<br><br>
+
+		변수선언 const<br>
+			const a = 12, const b = "이것은"<br>
+			let c = 32<br><br>
+
+		기본 println : console.log(내용)<br><br>
+
+		기본연산자 : 자바와 동일(+,-,*,/,||,&&)<br>
+		기본명령어 : 자바와 동일(for, if, while,...)<br><br>
+
+		함수(메소드)로 동작<br>
+		(자바:public String 메소드명() => 자바스크립트:function 메소드())<br>
+		function 메소드명(인수,...) {<br><br>
+
+		}<br><br>
+
+		=====================================================<br>
+		자바스크립트의 핵심기능 DOM(Document Object Model)<br>
+		태그명 = 객체(Object)<br>
+		DOM이 변형되어서 ajax, node,...<br><br>
+
+		사용법:<br>
+		$(document).메소드명(프로그램 작성)<br><br>
+
+		---수동으로 동작 onclick="javascript:sum()"---<br>
+		function sum(let a, let b) {<br>
+			let c = a + b;<br>
+		}<br><br>
+
+		---자동으로 동작(페이지가 화면에 뜨면서)---<br>
+		$(document).메소드(function(){<br>
+			let c = a + b;<br>
+		})
+	</div>
+</body>
+</html>

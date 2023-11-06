@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--레이아웃으로 작업 시 레이아웃만 head가 존재, 다른 페이지는 head부분을 삭제-->
+<!--디자인 작업 후에 head태그와 내용, body태그 삭제-->
+<div th:fragment="header">
+	<!--로그인 회원 정보(아이디 출력)  이걸로 나중에 댓글 작성자 아이디 출력 가능-->
+	<p class="text-end" sec:authorize="isAuthenticated()"><small sec:authentication="name"></small><small>님 환영합니다.</small></p>
+	<nav class="navbar navbar-expand-sm bg-light">
+
+		<div class="container-fluid">
+			<!-- Links -->
+			<ul class="navbar-nav">
+				<a class="navbar-brand" href="#">Logo</a>
+				<li class="nav-item" sec:authorize="hasRole('ADMIN')"> <!--인증 처리된 사용자만 접근가능-->
+					<a class="nav-link" href="/admin/list">관리자용 게시판</a>
+				</li>
+				<li class="nav-item" sec:authorize="hasAnyRole('ADMIN','USER')"> <!--인증안된 사용자가 접근가능-->
+					<a class="nav-link" href="/user/list">유저용 게시판</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAnonymous()"> <!--인증안된 사용자가 접근가능-->
+					<a class="nav-link" href="/member/login">로그인</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated()"> <!--인증 처리된 사용자만 접근가능-->
+					<a class="nav-link" href="/member/logout">로그아웃</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAnonymous()"> <!--인증안된 사용자가 접근가능-->
+					<a class="nav-link" href="/member/register">회원가입</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">세부메뉴</a>
+					<ul class="dropdown-menu">
+						<li class="nav-item"> <!--인증된 사용자가 접근가능(관리자)-->
+							<a class="nav-link" href="#"> 상품관리</a>
+						</li>
+						<li class="nav-item"> <!--인증된 사용자가 접근가능(일반사용자)-->
+							<a class="nav-link" href="#"> 장바구니</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+	</nav>
+</div>
+
+</html>
